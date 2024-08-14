@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Team Selection and Product Customization</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #333;
+            color: white;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        h1 {
+            text-align: center;
+        }
+        .team-selection, .product-customization {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+        }
+        .team-button, .logo-button, .color-button {
+            background-color: #444;
+            border: none;
+            color: white;
+            padding: 20px;
+            text-align: center;
+            text-decoration: none;
+            font-size: 16px;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+        .team-button:hover, .logo-button:hover, .color-button:hover {
+            background-color: #555;
+        }
+        .product-image {
+            background-color: white;
+            height: 300px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: black;
+        }
+        .go-to-product {
+            background-color: #4CAF50;
+            border: none;
+            color: white;
+            padding: 15px 32px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin: 4px 2px;
+            cursor: pointer;
+        }
+        .back-button {
+            background-color: #f44336;
+            border: none;
+            color: white;
+            padding: 15px 32px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin: 4px 2px;
+            cursor: pointer;
+        }
+        #productCustomization {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div id="teamSelection">
+            <h1>TAKIMINI SEÇ</h1>
+            <div class="team-selection">
+                <button class="team-button" onclick="selectTeam('TEAM1')">TEAM1</button>
+                <button class="team-button" onclick="selectTeam('TEAM2')">TEAM2</button>
+                <button class="team-button" onclick="selectTeam('TEAM3')">TEAM3</button>
+                <button class="team-button" onclick="selectTeam('TEAM4')">TEAM4</button>
+            </div>
+        </div>
+
+        <div id="productCustomization" style="display:none;">
+            <button class="back-button" onclick="goBack()">Back</button>
+            <h1>CHOOSE YOUR LOGO</h1>
+            <div class="product-customization">
+                <div>
+                    <button class="logo-button" onclick="selectLogo('LOGO1')">LOGO1</button>
+                    <button class="logo-button" onclick="selectLogo('LOGO2')">LOGO2</button>
+                    <button class="logo-button" onclick="selectLogo('LOGO3')">LOGO3</button>
+                    <h2>COLOR</h2>
+                    <button class="color-button" onclick="selectColor('COLOR1')">COLOR1</button>
+                    <button class="color-button" onclick="selectColor('COLOR2')">COLOR2</button>
+                    <button class="color-button" onclick="selectColor('COLOR3')">COLOR3</button>
+                </div>
+                <div>
+                    <div class="product-image" id="productImage">
+                        PRODUCT IMAGE
+                    </div>
+                    <button class="go-to-product" onclick="goToProductPage()">GO TO PRODUCT PAGE</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let selectedTeam, selectedLogo, selectedColor;
+
+        function selectTeam(team) {
+            selectedTeam = team;
+            document.getElementById('teamSelection').style.display = 'none';
+            document.getElementById('productCustomization').style.display = 'block';
+        }
+
+        function selectLogo(logo) {
+            selectedLogo = logo;
+            updateProductImage();
+        }
+
+        function selectColor(color) {
+            selectedColor = color;
+            updateProductImage();
+        }
+
+        function updateProductImage() {
+            const productImage = document.getElementById('productImage');
+            productImage.innerHTML = `Team: ${selectedTeam || 'Not selected'}<br>
+                                      Logo: ${selectedLogo || 'Not selected'}<br>
+                                      Color: ${selectedColor || 'Not selected'}`;
+        }
+
+        function goBack() {
+            document.getElementById('teamSelection').style.display = 'block';
+            document.getElementById('productCustomization').style.display = 'none';
+            selectedTeam = selectedLogo = selectedColor = null;
+            updateProductImage();
+        }
+
+        function goToProductPage() {
+            if (selectedTeam && selectedLogo && selectedColor) {
+                alert(`Going to product page for Team: ${selectedTeam}, Logo: ${selectedLogo}, Color: ${selectedColor}`);
+                // Replace this with actual navigation to the product page
+            } else {
+                alert('Please select a team, logo, and color before proceeding.');
+            }
+        }
+    </script>
+</body>
+</html>
