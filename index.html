@@ -13,30 +13,56 @@
             color: white;
         }
         .container {
-            max-width: 800px;
+            max-width: 1000px;
             margin: 0 auto;
             padding: 20px;
         }
         h1 {
             text-align: center;
+            font-size: 3em;
+            margin-bottom: 40px;
         }
-        .team-selection, .product-customization {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
+        .team-selection {
+            display: flex;
+            justify-content: space-between;
             gap: 20px;
         }
-        .team-button, .logo-button, .color-button {
+        .team-logo {
+            width: 200px;
+            height: 200px;
+            background-color: #444;
+            border: none;
+            padding: 10px;
+            cursor: pointer;
+            border-radius: 10px;
+            transition: transform 0.3s ease;
+        }
+        .team-logo:hover {
+            transform: scale(1.05);
+        }
+        .team-logo img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+        .product-customization {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+        .logo-button, .color-button {
             background-color: #444;
             border: none;
             color: white;
-            padding: 20px;
+            padding: 15px;
             text-align: center;
             text-decoration: none;
             font-size: 16px;
             cursor: pointer;
             border-radius: 5px;
+            margin: 5px;
         }
-        .team-button:hover, .logo-button:hover, .color-button:hover {
+        .logo-button:hover, .color-button:hover {
             background-color: #555;
         }
         .product-image {
@@ -81,10 +107,18 @@
         <div id="teamSelection">
             <h1>TAKIMINI SEÇ</h1>
             <div class="team-selection">
-                <button class="team-button" onclick="selectTeam('TEAM1')">TEAM1</button>
-                <button class="team-button" onclick="selectTeam('TEAM2')">TEAM2</button>
-                <button class="team-button" onclick="selectTeam('TEAM3')">TEAM3</button>
-                <button class="team-button" onclick="selectTeam('TEAM4')">TEAM4</button>
+                <button class="team-logo" onclick="selectTeam('TEAM1')">
+                    <img src="https://i.ibb.co/mq68Fct/gs.png" alt="Team 1">
+                </button>
+                <button class="team-logo" onclick="selectTeam('TEAM2')">
+                    <img src="https://i.ibb.co/0m1jBgR/fb.png" alt="Team 2">
+                </button>
+                <button class="team-logo" onclick="selectTeam('TEAM3')">
+                    <img src="https://i.ibb.co/QPWLv9s/bjk.png" alt="Team 3">
+                </button>
+                <button class="team-logo" onclick="selectTeam('TEAM4')">
+                    <img src="https://i.ibb.co/gDkCj2N/ts.png" alt="Team 4">
+                </button>
             </div>
         </div>
 
