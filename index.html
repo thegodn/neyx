@@ -61,9 +61,18 @@
             border-radius: 50%;
             cursor: pointer;
             transition: transform 0.3s ease;
+            border: 2px solid transparent;
         }
         .logo-option:hover, .color-option:hover {
             transform: scale(1.1);
+        }
+        .logo-option.selected, .color-option.selected {
+            border-color: #4CAF50;
+        }
+        .logo-option img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
         }
         .color-white {
             background-color: white;
@@ -130,10 +139,8 @@
             <button class="back-button" onclick="goBack()">TAKIM SEÇİMİNE GERİ DÖN</button>
             <h1>LOGONU VE RENGİNİ SEÇ</h1>
             <div class="product-customization">
-                <div class="logo-selection">
-                    <div class="logo-option" onclick="selectLogo('LOGO1')"></div>
-                    <div class="logo-option" onclick="selectLogo('LOGO2')"></div>
-                    <div class="logo-option" onclick="selectLogo('LOGO3')"></div>
+                <div class="logo-selection" id="logoSelection">
+                    <!-- Logo options will be dynamically added here -->
                 </div>
                 <div class="color-selection">
                     <div class="color-option color-white" onclick="selectColor('WHITE')"></div>
@@ -147,21 +154,65 @@
 
     <script>
         let selectedTeam, selectedLogo, selectedColor;
+        const teamLogos = {
+            TEAM1: [
+                "https://i.ibb.co/kHKrKnY/gs1.png",
+                "https://i.ibb.co/GvcJPy7/gs2.png",
+                "https://i.ibb.co/rt2pCRt/gs3.png"
+            ],
+            TEAM2: [
+                "https://i.ibb.co/MMyWg1R/fb1.png",
+                "https://i.ibb.co/44PxLCk/fb2.png",
+                "https://i.ibb.co/6mC4Rv6/fb3.png"
+            ],
+            TEAM3: [
+                "https://i.ibb.co/j8cJpkp/bjk1.png",
+                "https://i.ibb.co/r77D02K/bjk2.png",
+                "https://i.ibb.co/PwyzVSg/bjk3.png"
+            ],
+            TEAM4: [
+                "https://i.ibb.co/0MH2DXv/ts1.png",
+                "https://i.ibb.co/25zc7Hx/ts2.png",
+                "https://i.ibb.co/bvW4V6H/ts3.png"
+            ]
+        };
 
         function selectTeam(team) {
             selectedTeam = team;
             document.getElementById('teamSelection').style.display = 'none';
             document.getElementById('productCustomization').style.display = 'block';
+            updateLogoOptions(team);
+        }
+
+        function updateLogoOptions(team) {
+            const logoSelection = document.getElementById('logoSelection');
+            logoSelection.innerHTML = '';
+            teamLogos[team].forEach((logo, index) => {
+                const logoOption = document.createElement('div');
+                logoOption.className = 'logo-option';
+                logoOption.onclick = () => selectLogo(`LOGO${index + 1}`);
+                const img = document.createElement('img');
+                img.src = logo;
+                img.alt = `Logo ${index + 1}`;
+                logoOption.appendChild(img);
+                logoSelection.appendChild(logoOption);
+            });
         }
 
         function selectLogo(logo) {
             selectedLogo = logo;
-            // Update visual feedback for logo selection
+            document.querySelectorAll('.logo-option').forEach(option => {
+                option.classList.remove('selected');
+            });
+            event.currentTarget.classList.add('selected');
         }
 
         function selectColor(color) {
             selectedColor = color;
-            // Update visual feedback for color selection
+            document.querySelectorAll('.color-option').forEach(option => {
+                option.classList.remove('selected');
+            });
+            event.currentTarget.classList.add('selected');
         }
 
         function goBack() {
