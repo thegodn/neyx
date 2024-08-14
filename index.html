@@ -9,41 +9,54 @@
             font-family: Arial, sans-serif;
             margin: 0;
             padding: 0;
-            background-color: #333;
+            background-color: #222;
             color: white;
         }
         .container {
             max-width: 1200px;
             margin: 0 auto;
-            padding: 20px;
+            padding: 40px 20px;
         }
         h1 {
             text-align: center;
-            font-size: 2.5em;
-            margin-bottom: 40px;
+            font-size: 3em;
+            margin-bottom: 60px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
         }
         .team-selection {
             display: flex;
             justify-content: space-between;
-            gap: 20px;
+            gap: 30px;
+        }
+        .team-logo-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
         }
         .team-logo {
-            width: 250px;
-            height: 250px;
-            background-color: #444;
+            width: 280px;
+            height: 280px;
+            background-color: #333;
             border: none;
-            padding: 10px;
+            padding: 20px;
             cursor: pointer;
-            border-radius: 10px;
-            transition: transform 0.3s ease;
+            border-radius: 15px;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
         }
         .team-logo:hover {
-            transform: scale(1.05);
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.3);
         }
         .team-logo img {
             width: 100%;
             height: 100%;
             object-fit: contain;
+        }
+        .team-name {
+            margin-top: 15px;
+            font-size: 1.2em;
+            font-weight: bold;
         }
         .product-customization {
             display: flex;
@@ -52,22 +65,24 @@
         }
         .logo-selection, .color-selection {
             display: flex;
-            gap: 20px;
-            margin-bottom: 20px;
+            gap: 30px;
+            margin-bottom: 30px;
         }
         .logo-option, .color-option {
-            width: 80px;
-            height: 80px;
+            width: 100px;
+            height: 100px;
             border-radius: 50%;
             cursor: pointer;
-            transition: transform 0.3s ease;
-            border: 2px solid transparent;
+            transition: all 0.3s ease;
+            border: 3px solid transparent;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
         }
         .logo-option:hover, .color-option:hover {
             transform: scale(1.1);
         }
         .logo-option.selected, .color-option.selected {
             border-color: #4CAF50;
+            box-shadow: 0 0 20px rgba(76,175,80,0.5);
         }
         .logo-option img {
             width: 100%;
@@ -76,7 +91,6 @@
         }
         .color-white {
             background-color: white;
-            border: 1px solid #ccc;
         }
         .color-black {
             background-color: black;
@@ -88,27 +102,43 @@
             background-color: #4CAF50;
             border: none;
             color: white;
-            padding: 15px 32px;
+            padding: 15px 40px;
             text-align: center;
             text-decoration: none;
             display: inline-block;
-            font-size: 16px;
-            margin-top: 20px;
+            font-size: 18px;
+            margin-top: 30px;
             cursor: pointer;
+            border-radius: 30px;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+        .go-to-product:hover {
+            background-color: #45a049;
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.3);
         }
         .back-button {
             background-color: #f44336;
             border: none;
             color: white;
-            padding: 10px 20px;
+            padding: 12px 25px;
             text-align: center;
             text-decoration: none;
             display: inline-block;
-            font-size: 14px;
+            font-size: 16px;
             position: absolute;
-            top: 20px;
-            left: 20px;
+            top: 30px;
+            left: 30px;
             cursor: pointer;
+            border-radius: 25px;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+        .back-button:hover {
+            background-color: #d32f2f;
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.3);
         }
         #productCustomization {
             display: none;
@@ -120,18 +150,30 @@
         <div id="teamSelection">
             <h1>TARAFINI SEÇ TİŞÖRTÜNÜ GİY</h1>
             <div class="team-selection">
-                <button class="team-logo" onclick="selectTeam('TEAM1')">
-                    <img src="https://i.ibb.co/DLv4qv3/gss.png" alt="Team 1">
-                </button>
-                <button class="team-logo" onclick="selectTeam('TEAM2')">
-                    <img src="https://i.ibb.co/0m1jBgR/fb.png" alt="Team 2">
-                </button>
-                <button class="team-logo" onclick="selectTeam('TEAM3')">
-                    <img src="https://i.ibb.co/QPWLv9s/bjk.png" alt="Team 3">
-                </button>
-                <button class="team-logo" onclick="selectTeam('TEAM4')">
-                    <img src="https://i.ibb.co/rs5H9qK/tss.png" alt="Team 4">
-                </button>
+                <div class="team-logo-container">
+                    <button class="team-logo" onclick="selectTeam('TEAM1')">
+                        <img src="https://i.ibb.co/DLv4qv3/gss.png" alt="Galatasaray">
+                    </button>
+                    <div class="team-name">Galatasaray</div>
+                </div>
+                <div class="team-logo-container">
+                    <button class="team-logo" onclick="selectTeam('TEAM2')">
+                        <img src="https://i.ibb.co/0m1jBgR/fb.png" alt="Fenerbahçe">
+                    </button>
+                    <div class="team-name">Fenerbahçe</div>
+                </div>
+                <div class="team-logo-container">
+                    <button class="team-logo" onclick="selectTeam('TEAM3')">
+                        <img src="https://i.ibb.co/QPWLv9s/bjk.png" alt="Beşiktaş">
+                    </button>
+                    <div class="team-name">Beşiktaş</div>
+                </div>
+                <div class="team-logo-container">
+                    <button class="team-logo" onclick="selectTeam('TEAM4')">
+                        <img src="https://i.ibb.co/rs5H9qK/tss.png" alt="Trabzon Spor">
+                    </button>
+                    <div class="team-name">Trabzon Spor</div>
+                </div>
             </div>
         </div>
 
@@ -156,23 +198,23 @@
         let selectedTeam, selectedLogo, selectedColor;
         const teamLogos = {
             TEAM1: [
-                "https://i.ibb.co/kHKrKnY/gs1.png",
-                "https://i.ibb.co/GvcJPy7/gs2.png",
-                "https://i.ibb.co/rt2pCRt/gs3.png"
+                "https://i.ibb.co/V9Vjkn7/gs1.png",
+                "https://i.ibb.co/DC6CQ8N/gs2.png",
+                "https://i.ibb.co/grTRK8y/gs3.png"
             ],
             TEAM2: [
-                "https://i.ibb.co/MMyWg1R/fb1.png",
+                "https://i.ibb.co/PhPWmmK/fb1.png",
                 "https://i.ibb.co/44PxLCk/fb2.png",
                 "https://i.ibb.co/6mC4Rv6/fb3.png"
             ],
             TEAM3: [
-                "https://i.ibb.co/j8cJpkp/bjk1.png",
+                "https://i.ibb.co/cDV6GpM/bjk1.png",
                 "https://i.ibb.co/r77D02K/bjk2.png",
-                "https://i.ibb.co/PwyzVSg/bjk3.png"
+                "https://i.ibb.co/QKsb8zS/bjk3.png"
             ],
             TEAM4: [
-                "https://i.ibb.co/0MH2DXv/ts1.png",
-                "https://i.ibb.co/25zc7Hx/ts2.png",
+                "https://i.ibb.co/Bz9f4qf/ts1.png",
+                "https://i.ibb.co/10cWpqx/ts2.png",
                 "https://i.ibb.co/bvW4V6H/ts3.png"
             ]
         };
