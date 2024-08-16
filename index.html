@@ -60,8 +60,13 @@
         }
         .product-customization {
             display: flex;
-            flex-direction: column;
-            align-items: center;
+            justify-content: space-between;
+            align-items: flex-start;
+            width: 100%;
+        }
+        .customization-options {
+            flex: 1;
+            margin-right: 40px;
         }
         .logo-selection, .color-selection {
             display: flex;
@@ -105,14 +110,32 @@
             opacity: 0;
             transition: opacity 0.5s ease;
         }
-        .color-white {
-            background-color: white;
+        .color-white { background-color: white; }
+        .color-black { background-color: black; }
+        .color-cream { background-color: #F5DEB3; }
+        .color-anthracite { background-color: #383E42; }
+        .product-preview {
+            flex: 1;
+            background-color: #333;
+            border-radius: 15px;
+            padding: 20px;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+            text-align: center;
         }
-        .color-black {
-            background-color: black;
+        .preview-image {
+            width: 100%;
+            height: 300px;
+            background-color: #444;
+            margin-bottom: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 18px;
+            color: #888;
         }
-        .color-cream {
-            background-color: #F5DEB3;
+        .preview-details {
+            font-size: 16px;
+            line-height: 1.6;
         }
         .go-to-product {
             background-color: #4CAF50;
@@ -197,16 +220,27 @@
             <button class="back-button" onclick="goBack()">TAKIM SEÇİMİNE GERİ DÖN</button>
             <h1>LOGONU VE RENGİNİ SEÇ</h1>
             <div class="product-customization">
-                <div class="logo-selection" id="logoSelection">
-                    <!-- Logo options will be dynamically added here -->
+                <div class="customization-options">
+                    <div class="logo-selection" id="logoSelection">
+                        <!-- Logo options will be dynamically added here -->
+                    </div>
+                    <div class="color-selection">
+                        <div class="color-option color-white" onclick="selectColor('WHITE')"></div>
+                        <div class="color-option color-black" onclick="selectColor('BLACK')"></div>
+                        <div class="color-option color-cream" onclick="selectColor('CREAM')"></div>
+                        <div class="color-option color-anthracite" onclick="selectColor('ANTHRACITE')"></div>
+                    </div>
                 </div>
-                <div class="color-selection">
-                    <div class="color-option color-white" onclick="selectColor('WHITE')"></div>
-                    <div class="color-option color-black" onclick="selectColor('BLACK')"></div>
-                    <div class="color-option color-cream" onclick="selectColor('CREAM')"></div>
+                <div class="product-preview">
+                    <div class="preview-image" id="previewImage">
+                        Product preview will appear here
+                    </div>
+                    <div class="preview-details" id="previewDetails">
+                        Select a team, logo, and color to see the preview
+                    </div>
                 </div>
-                <button class="go-to-product" onclick="goToProductPage()">GO TO PRODUCT PAGE</button>
             </div>
+            <button class="go-to-product" onclick="goToProductPage()">GO TO PRODUCT PAGE</button>
         </div>
     </div>
 
@@ -235,6 +269,13 @@
             ]
         };
 
+        const teamNames = {
+            TEAM1: "Galatasaray",
+            TEAM2: "Fenerbahçe",
+            TEAM3: "Beşiktaş",
+            TEAM4: "Trabzon Spor"
+        };
+
         function preloadImages(team) {
             return Promise.all(teamLogos[team].map(src => {
                 return new Promise((resolve, reject) => {
@@ -252,6 +293,7 @@
             document.getElementById('productCustomization').style.display = 'block';
             await preloadImages(team);
             updateLogoOptions(team);
+            updatePreview();
         }
 
         function updateLogoOptions(team) {
@@ -260,7 +302,7 @@
             teamLogos[team].forEach((logo, index) => {
                 const logoOption = document.createElement('div');
                 logoOption.className = 'logo-option';
-                logoOption.onclick = () => selectLogo(`LOGO${index + 1}`);
+                logoOption.onclick = () => selectLogo(`LOGO${index + 1}`, logo);
                 const img = document.createElement('img');
                 img.src = logo;
                 img.alt = `Logo ${index + 1}`;
@@ -272,12 +314,13 @@
             });
         }
 
-        function selectLogo(logo) {
+        function selectLogo(logo, logoUrl) {
             selectedLogo = logo;
             document.querySelectorAll('.logo-option').forEach(option => {
                 option.classList.remove('selected');
             });
             event.currentTarget.classList.add('selected');
+            updatePreview(logoUrl);
         }
 
         function selectColor(color) {
@@ -286,17 +329,38 @@
                 option.classList.remove('selected');
             });
             event.currentTarget.classList.add('selected');
+            updatePreview();
+        }
+
+        function updatePreview(logoUrl) {
+            const previewImage = document.getElementById('previewImage');
+            const previewDetails = document.getElementById('previewDetails');
+
+            if (selectedTeam && (logoUrl || selectedLogo) && selectedColor) {
+                const currentLogoUrl = logoUrl || document.querySelector('.logo-option.selected img').src;
+                previewImage.innerHTML = `<img src="${currentLogoUrl}" alt="Selected Logo" style="max-width: 100%; max-height: 100%;">`;
+                previewImage.style.backgroundColor = selectedColor.toLowerCase();
+                previewDetails.innerHTML = `
+                    Team: ${teamNames[selectedTeam]}<br>
+                    Logo: ${selectedLogo || 'Selected'}<br>
+                    Color: ${selectedColor}
+                `;
+            } else {
+                previewImage.innerHTML = 'Complete your selection to see the preview';
+                previewDetails.innerHTML = 'Select a team, logo, and color to see the preview';
+            }
         }
 
         function goBack() {
             document.getElementById('teamSelection').style.display = 'block';
             document.getElementById('productCustomization').style.display = 'none';
             selectedTeam = selectedLogo = selectedColor = null;
+            updatePreview();
         }
 
         function goToProductPage() {
             if (selectedTeam && selectedLogo && selectedColor) {
-                alert(`Going to product page for Team: ${selectedTeam}, Logo: ${selectedLogo}, Color: ${selectedColor}`);
+                alert(`Going to product page for Team: ${teamNames[selectedTeam]}, Logo: ${selectedLogo}, Color: ${selectedColor}`);
                 // Replace this with actual navigation to the product page
             } else {
                 alert('Please select a team, logo, and color before proceeding.');
