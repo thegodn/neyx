@@ -10,13 +10,18 @@
             font-family: Arial, sans-serif;
             margin: 0;
             padding: 0;
-            background-color: #222;
             color: white;
+            background-image: url('https://i.ibb.co/2j1751n/Ads-z-1920-x-1080-piksel.png');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
         }
         .container {
             max-width: 1200px;
             margin: 0 auto;
             padding: 20px;
+            background-color: rgba(0, 0, 0, 0.7); /* Semi-transparent black overlay */
         }
         h1 {
             font-family: 'Bebas Neue', cursive;
@@ -92,7 +97,7 @@
         .color-krem { background-color: #F5DEB3; }
         .color-antrasit { background-color: #383E42; }
         .product-preview {
-            background-color: #333;
+            background-color: rgba(51, 51, 51, 0.8);
             border-radius: 15px;
             padding: 20px;
             box-shadow: 0 10px 20px rgba(0,0,0,0.2);
@@ -167,6 +172,7 @@
     </div>
 
     <script>
+        // The JavaScript remains the same as in the previous version
         let selectedLogo, selectedColor;
         const logos = [
             { url: "https://i.ibb.co/V9Vjkn7/gs1.png", name: "Sarı Kırmızı Aslan" },
