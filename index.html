@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Team Selection and Product Customization</title>
+    <title>T-Shirt Customization</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -19,63 +19,27 @@
         }
         h1 {
             text-align: center;
-            font-size: 3em;
-            margin-bottom: 60px;
+            font-size: 2.5em;
+            margin-bottom: 40px;
             text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
         }
-        .team-selection {
+        .customization-area {
             display: flex;
             justify-content: space-between;
-            gap: 30px;
         }
-        .team-logo-container {
+        .options-area {
             display: flex;
-            flex-direction: column;
-            align-items: center;
+            flex: 2;
         }
-        .team-logo {
-            width: 280px;
-            height: 280px;
-            background-color: #333;
-            border: none;
-            padding: 20px;
-            cursor: pointer;
-            border-radius: 15px;
-            transition: all 0.3s ease;
-            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
-        }
-        .team-logo:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 15px 30px rgba(0,0,0,0.3);
-        }
-        .team-logo img {
-            width: 100%;
-            height: 100%;
-            object-fit: contain;
-        }
-        .team-name {
-            margin-top: 15px;
-            font-size: 1.2em;
-            font-weight: bold;
-        }
-        .product-customization {
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-start;
-            width: 100%;
-        }
-        .customization-options {
-            flex: 1;
+        .logo-selection {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
             margin-right: 40px;
         }
-        .logo-selection, .color-selection {
-            display: flex;
-            gap: 30px;
-            margin-bottom: 30px;
-        }
         .logo-option {
-            width: 180px;
-            height: 180px;
+            width: 100px;
+            height: 100px;
             border-radius: 50%;
             cursor: pointer;
             transition: all 0.3s ease;
@@ -87,6 +51,23 @@
             align-items: center;
             overflow: hidden;
         }
+        .logo-option:hover {
+            transform: scale(1.1);
+        }
+        .logo-option.selected {
+            border-color: #4CAF50;
+            box-shadow: 0 0 20px rgba(76,175,80,0.5);
+        }
+        .logo-option img {
+            max-width: 90%;
+            max-height: 90%;
+            object-fit: contain;
+        }
+        .color-selection {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
         .color-option {
             width: 60px;
             height: 60px;
@@ -96,19 +77,12 @@
             border: 3px solid transparent;
             box-shadow: 0 5px 15px rgba(0,0,0,0.2);
         }
-        .logo-option:hover, .color-option:hover {
+        .color-option:hover {
             transform: scale(1.1);
         }
-        .logo-option.selected, .color-option.selected {
+        .color-option.selected {
             border-color: #4CAF50;
             box-shadow: 0 0 20px rgba(76,175,80,0.5);
-        }
-        .logo-option img {
-            max-width: 90%;
-            max-height: 90%;
-            object-fit: contain;
-            opacity: 0;
-            transition: opacity 0.5s ease;
         }
         .color-white { background-color: white; }
         .color-black { background-color: black; }
@@ -144,9 +118,9 @@
             padding: 15px 40px;
             text-align: center;
             text-decoration: none;
-            display: inline-block;
+            display: block;
             font-size: 18px;
-            margin-top: 30px;
+            margin: 30px auto 0;
             cursor: pointer;
             border-radius: 30px;
             transition: all 0.3s ease;
@@ -157,158 +131,61 @@
             transform: translateY(-3px);
             box-shadow: 0 8px 20px rgba(0,0,0,0.3);
         }
-        .back-button {
-            background-color: #f44336;
-            border: none;
-            color: white;
-            padding: 12px 25px;
-            text-align: center;
-            text-decoration: none;
-            display: inline-block;
-            font-size: 16px;
-            position: absolute;
-            top: 30px;
-            left: 30px;
-            cursor: pointer;
-            border-radius: 25px;
-            transition: all 0.3s ease;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
-        }
-        .back-button:hover {
-            background-color: #d32f2f;
-            transform: translateY(-3px);
-            box-shadow: 0 8px 20px rgba(0,0,0,0.3);
-        }
-        #productCustomization {
-            display: none;
-        }
     </style>
 </head>
 <body>
     <div class="container">
-        <div id="teamSelection">
-            <h1>TARAFINI SEÇ TİŞÖRTÜNÜ GİY</h1>
-            <div class="team-selection">
-                <div class="team-logo-container">
-                    <button class="team-logo" onclick="selectTeam('TEAM1')">
-                        <img src="https://i.ibb.co/DLv4qv3/gss.png" alt="Galatasaray">
-                    </button>
-                    <div class="team-name">Galatasaray</div>
+        <h1>LOGONU VE RENGİNİ SEÇ</h1>
+        <div class="customization-area">
+            <div class="options-area">
+                <div class="logo-selection" id="logoSelection">
+                    <!-- Logos will be dynamically added here -->
                 </div>
-                <div class="team-logo-container">
-                    <button class="team-logo" onclick="selectTeam('TEAM2')">
-                        <img src="https://i.ibb.co/hHMgK1C/fbbb.png" alt="Fenerbahçe">
-                    </button>
-                    <div class="team-name">Fenerbahçe</div>
+                <div class="color-selection">
+                    <div class="color-option color-white" onclick="selectColor('WHITE')"></div>
+                    <div class="color-option color-black" onclick="selectColor('BLACK')"></div>
+                    <div class="color-option color-cream" onclick="selectColor('CREAM')"></div>
+                    <div class="color-option color-anthracite" onclick="selectColor('ANTHRACITE')"></div>
                 </div>
-                <div class="team-logo-container">
-                    <button class="team-logo" onclick="selectTeam('TEAM3')">
-                        <img src="https://i.ibb.co/QPWLv9s/bjk.png" alt="Beşiktaş">
-                    </button>
-                    <div class="team-name">Beşiktaş</div>
+            </div>
+            <div class="product-preview">
+                <div class="preview-image" id="previewImage">
+                    Product preview will appear here
                 </div>
-                <div class="team-logo-container">
-                    <button class="team-logo" onclick="selectTeam('TEAM4')">
-                        <img src="https://i.ibb.co/rs5H9qK/tss.png" alt="Trabzon Spor">
-                    </button>
-                    <div class="team-name">Trabzon Spor</div>
+                <div class="preview-details" id="previewDetails">
+                    Select a logo and color to see the preview
                 </div>
             </div>
         </div>
-
-        <div id="productCustomization" style="display:none;">
-            <button class="back-button" onclick="goBack()">TAKIM SEÇİMİNE GERİ DÖN</button>
-            <h1>LOGONU VE RENGİNİ SEÇ</h1>
-            <div class="product-customization">
-                <div class="customization-options">
-                    <div class="logo-selection" id="logoSelection">
-                        <!-- Logo options will be dynamically added here -->
-                    </div>
-                    <div class="color-selection">
-                        <div class="color-option color-white" onclick="selectColor('WHITE')"></div>
-                        <div class="color-option color-black" onclick="selectColor('BLACK')"></div>
-                        <div class="color-option color-cream" onclick="selectColor('CREAM')"></div>
-                        <div class="color-option color-anthracite" onclick="selectColor('ANTHRACITE')"></div>
-                    </div>
-                </div>
-                <div class="product-preview">
-                    <div class="preview-image" id="previewImage">
-                        Product preview will appear here
-                    </div>
-                    <div class="preview-details" id="previewDetails">
-                        Önizlemeyi görmek için logo ve renk seçiminizi tamamlayın.
-                    </div>
-                </div>
-            </div>
-            <button class="go-to-product" onclick="goToProductPage()">ÜRÜN SAYFASINA GİT</button>
-        </div>
+        <button class="go-to-product" onclick="goToProductPage()">GO TO PRODUCT PAGE</button>
     </div>
 
     <script>
-        let selectedTeam, selectedLogo, selectedColor;
-        const teamLogos = {
-            TEAM1: [
-                "https://i.ibb.co/V9Vjkn7/gs1.png",
-                "https://i.ibb.co/DC6CQ8N/gs2.png",
-                "https://i.ibb.co/grTRK8y/gs3.png"
-            ],
-            TEAM2: [
-                "https://i.ibb.co/PhPWmmK/fb1.png",
-                "https://i.ibb.co/44PxLCk/fb2.png",
-                "https://i.ibb.co/6mC4Rv6/fb3.png"
-            ],
-            TEAM3: [
-                "https://i.ibb.co/cDV6GpM/bjk1.png",
-                "https://i.ibb.co/r77D02K/bjk2.png",
-                "https://i.ibb.co/QKsb8zS/bjk3.png"
-            ],
-            TEAM4: [
-                "https://i.ibb.co/Bz9f4qf/ts1.png",
-                "https://i.ibb.co/10cWpqx/ts2.png",
-                "https://i.ibb.co/bvW4V6H/ts3.png"
-            ]
-        };
+        let selectedLogo, selectedColor;
+        const logos = [
+            "https://i.ibb.co/V9Vjkn7/gs1.png",
+            "https://i.ibb.co/DC6CQ8N/gs2.png",
+            "https://i.ibb.co/grTRK8y/gs3.png",
+            "https://i.ibb.co/hHMgK1C/fbbb.png",
+            "https://i.ibb.co/44PxLCk/fb2.png",
+            "https://i.ibb.co/6mC4Rv6/fb3.png",
+            "https://i.ibb.co/cDV6GpM/bjk1.png",
+            "https://i.ibb.co/r77D02K/bjk2.png",
+            "https://i.ibb.co/QKsb8zS/bjk3.png",
+            "https://i.ibb.co/Bz9f4qf/ts1.png",
+            "https://i.ibb.co/10cWpqx/ts2.png",
+            "https://i.ibb.co/bvW4V6H/ts3.png"
+        ];
 
-        const teamNames = {
-            TEAM1: "Galatasaray",
-            TEAM2: "Fenerbahçe",
-            TEAM3: "Beşiktaş",
-            TEAM4: "Trabzon Spor"
-        };
-
-        function preloadImages(team) {
-            return Promise.all(teamLogos[team].map(src => {
-                return new Promise((resolve, reject) => {
-                    const img = new Image();
-                    img.onload = resolve;
-                    img.onerror = reject;
-                    img.src = src;
-                });
-            }));
-        }
-
-        async function selectTeam(team) {
-            selectedTeam = team;
-            document.getElementById('teamSelection').style.display = 'none';
-            document.getElementById('productCustomization').style.display = 'block';
-            await preloadImages(team);
-            updateLogoOptions(team);
-            updatePreview();
-        }
-
-        function updateLogoOptions(team) {
+        function initializeLogos() {
             const logoSelection = document.getElementById('logoSelection');
-            logoSelection.innerHTML = '';
-            teamLogos[team].forEach((logo, index) => {
+            logos.forEach((logo, index) => {
                 const logoOption = document.createElement('div');
                 logoOption.className = 'logo-option';
                 logoOption.onclick = () => selectLogo(`LOGO${index + 1}`, logo);
                 const img = document.createElement('img');
                 img.src = logo;
                 img.alt = `Logo ${index + 1}`;
-                img.onload = () => {
-                    img.style.opacity = 1;
-                };
                 logoOption.appendChild(img);
                 logoSelection.appendChild(logoOption);
             });
@@ -336,36 +213,31 @@
             const previewImage = document.getElementById('previewImage');
             const previewDetails = document.getElementById('previewDetails');
 
-            if (selectedTeam && (logoUrl || selectedLogo) && selectedColor) {
+            if ((logoUrl || selectedLogo) && selectedColor) {
                 const currentLogoUrl = logoUrl || document.querySelector('.logo-option.selected img').src;
                 previewImage.innerHTML = `<img src="${currentLogoUrl}" alt="Selected Logo" style="max-width: 100%; max-height: 100%;">`;
                 previewImage.style.backgroundColor = selectedColor.toLowerCase();
                 previewDetails.innerHTML = `
-                    Team: ${teamNames[selectedTeam]}<br>
                     Logo: ${selectedLogo || 'Selected'}<br>
                     Color: ${selectedColor}
                 `;
             } else {
-                previewImage.innerHTML = 'Önizlemeyi görmek için seçimlerinizi tamamlayın';
-                previewDetails.innerHTML = 'Önizlemeyi görmek için seçimlerinizi tamamlayın';
+                previewImage.innerHTML = 'Complete your selection to see the preview';
+                previewDetails.innerHTML = 'Select a logo and color to see the preview';
             }
-        }
-
-        function goBack() {
-            document.getElementById('teamSelection').style.display = 'block';
-            document.getElementById('productCustomization').style.display = 'none';
-            selectedTeam = selectedLogo = selectedColor = null;
-            updatePreview();
         }
 
         function goToProductPage() {
-            if (selectedTeam && selectedLogo && selectedColor) {
-                alert(`Going to product page for Team: ${teamNames[selectedTeam]}, Logo: ${selectedLogo}, Color: ${selectedColor}`);
+            if (selectedLogo && selectedColor) {
+                alert(`Going to product page for Logo: ${selectedLogo}, Color: ${selectedColor}`);
                 // Replace this with actual navigation to the product page
             } else {
-                alert('Please select a team, logo, and color before proceeding.');
+                alert('Please select a logo and color before proceeding.');
             }
         }
+
+        // Initialize logos when the page loads
+        window.onload = initializeLogos;
     </script>
 </body>
 </html>
