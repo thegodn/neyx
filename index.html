@@ -1,9 +1,10 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="tr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>T-Shirt Customization</title>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap" rel="stylesheet">
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -15,12 +16,13 @@
         .container {
             max-width: 1200px;
             margin: 0 auto;
-            padding: 40px 20px;
+            padding: 20px;
         }
         h1 {
+            font-family: 'Bebas Neue', cursive;
             text-align: center;
             font-size: 2.5em;
-            margin-bottom: 40px;
+            margin-bottom: 20px;
             text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
         }
         .customization-area {
@@ -29,17 +31,18 @@
         }
         .options-area {
             display: flex;
-            flex: 2;
+            flex-direction: column;
+            width: 60%;
         }
         .logo-selection {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
-            gap: 20px;
-            margin-right: 40px;
+            gap: 10px;
+            margin-bottom: 20px;
         }
         .logo-option {
-            width: 100px;
-            height: 100px;
+            width: 80px;
+            height: 80px;
             border-radius: 50%;
             cursor: pointer;
             transition: all 0.3s ease;
@@ -65,12 +68,13 @@
         }
         .color-selection {
             display: flex;
-            flex-direction: column;
-            gap: 20px;
+            justify-content: flex-start;
+            gap: 10px;
+            margin-bottom: 20px;
         }
         .color-option {
-            width: 60px;
-            height: 60px;
+            width: 40px;
+            height: 40px;
             border-radius: 50%;
             cursor: pointer;
             transition: all 0.3s ease;
@@ -84,17 +88,17 @@
             border-color: #4CAF50;
             box-shadow: 0 0 20px rgba(76,175,80,0.5);
         }
-        .color-white { background-color: white; }
-        .color-black { background-color: black; }
-        .color-cream { background-color: #F5DEB3; }
-        .color-anthracite { background-color: #383E42; }
+        .color-beyaz { background-color: white; }
+        .color-siyah { background-color: black; }
+        .color-krem { background-color: #F5DEB3; }
+        .color-antrasit { background-color: #383E42; }
         .product-preview {
-            flex: 1;
             background-color: #333;
             border-radius: 15px;
             padding: 20px;
             box-shadow: 0 10px 20px rgba(0,0,0,0.2);
             text-align: center;
+            width: 35%;
         }
         .preview-image {
             width: 100%;
@@ -104,23 +108,23 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            font-size: 18px;
+            font-size: 16px;
             color: #888;
         }
         .preview-details {
-            font-size: 16px;
+            font-size: 14px;
             line-height: 1.6;
         }
         .go-to-product {
             background-color: #4CAF50;
             border: none;
             color: white;
-            padding: 15px 40px;
+            padding: 10px 20px;
             text-align: center;
             text-decoration: none;
             display: block;
-            font-size: 18px;
-            margin: 30px auto 0;
+            font-size: 16px;
+            margin: 20px auto 0;
             cursor: pointer;
             border-radius: 30px;
             transition: all 0.3s ease;
@@ -142,39 +146,39 @@
                     <!-- Logos will be dynamically added here -->
                 </div>
                 <div class="color-selection">
-                    <div class="color-option color-white" onclick="selectColor('WHITE')"></div>
-                    <div class="color-option color-black" onclick="selectColor('BLACK')"></div>
-                    <div class="color-option color-cream" onclick="selectColor('CREAM')"></div>
-                    <div class="color-option color-anthracite" onclick="selectColor('ANTHRACITE')"></div>
+                    <div class="color-option color-beyaz" onclick="selectColor('BEYAZ')"></div>
+                    <div class="color-option color-siyah" onclick="selectColor('SİYAH')"></div>
+                    <div class="color-option color-krem" onclick="selectColor('KREM')"></div>
+                    <div class="color-option color-antrasit" onclick="selectColor('ANTRASİT')"></div>
                 </div>
             </div>
             <div class="product-preview">
                 <div class="preview-image" id="previewImage">
-                    Product preview will appear here
+                    Ürün önizlemesi bu alanda yer alacak
                 </div>
                 <div class="preview-details" id="previewDetails">
-                    Select a logo and color to see the preview
+                    Önizlemeyi görebilmek için logo ve renk seçimlerinizi tamamlayınız
                 </div>
+                <button class="go-to-product" onclick="goToProductPage()">ÜRÜN SAYFASINA GİT</button>
             </div>
         </div>
-        <button class="go-to-product" onclick="goToProductPage()">GO TO PRODUCT PAGE</button>
     </div>
 
     <script>
         let selectedLogo, selectedColor;
         const logos = [
-            "https://i.ibb.co/V9Vjkn7/gs1.png",
-            "https://i.ibb.co/DC6CQ8N/gs2.png",
-            "https://i.ibb.co/grTRK8y/gs3.png",
-            "https://i.ibb.co/hHMgK1C/fbbb.png",
-            "https://i.ibb.co/44PxLCk/fb2.png",
-            "https://i.ibb.co/6mC4Rv6/fb3.png",
-            "https://i.ibb.co/cDV6GpM/bjk1.png",
-            "https://i.ibb.co/r77D02K/bjk2.png",
-            "https://i.ibb.co/QKsb8zS/bjk3.png",
-            "https://i.ibb.co/Bz9f4qf/ts1.png",
-            "https://i.ibb.co/10cWpqx/ts2.png",
-            "https://i.ibb.co/bvW4V6H/ts3.png"
+            { url: "https://i.ibb.co/V9Vjkn7/gs1.png", name: "Sarı Kırmızı Aslan" },
+            { url: "https://i.ibb.co/DC6CQ8N/gs2.png", name: "Futbolcu ve Aslan" },
+            { url: "https://i.ibb.co/grTRK8y/gs3.png", name: "Aslan 1905" },
+            { url: "https://i.ibb.co/0c48ZjY/fb-1.png", name: "Kadıköy Boğası 1907" },
+            { url: "https://i.ibb.co/44PxLCk/fb2.png", name: "Sarı Kanarya 1907" },
+            { url: "https://i.ibb.co/6mC4Rv6/fb3.png", name: "Kadıköy Boğası" },
+            { url: "https://i.ibb.co/cDV6GpM/bjk1.png", name: "Kartal Pençesi 1903" },
+            { url: "https://i.ibb.co/r77D02K/bjk2.png", name: "Kara Kartal" },
+            { url: "https://i.ibb.co/QKsb8zS/bjk3.png", name: "Kartal 1903" },
+            { url: "https://i.ibb.co/Bz9f4qf/ts1.png", name: "Bordo Mavi Kaplan Pençesi" },
+            { url: "https://i.ibb.co/10cWpqx/ts2.png", name: "Karadeniz Kaplanı 1967" },
+            { url: "https://i.ibb.co/bvW4V6H/ts3.png", name: "Karadeniz Kaplanı" }
         ];
 
         function initializeLogos() {
@@ -182,17 +186,17 @@
             logos.forEach((logo, index) => {
                 const logoOption = document.createElement('div');
                 logoOption.className = 'logo-option';
-                logoOption.onclick = () => selectLogo(`LOGO${index + 1}`, logo);
+                logoOption.onclick = () => selectLogo(`LOGO${index + 1}`, logo.url, logo.name);
                 const img = document.createElement('img');
-                img.src = logo;
-                img.alt = `Logo ${index + 1}`;
+                img.src = logo.url;
+                img.alt = logo.name;
                 logoOption.appendChild(img);
                 logoSelection.appendChild(logoOption);
             });
         }
 
-        function selectLogo(logo, logoUrl) {
-            selectedLogo = logo;
+        function selectLogo(logo, logoUrl, logoName) {
+            selectedLogo = { logo, name: logoName };
             document.querySelectorAll('.logo-option').forEach(option => {
                 option.classList.remove('selected');
             });
@@ -218,21 +222,21 @@
                 previewImage.innerHTML = `<img src="${currentLogoUrl}" alt="Selected Logo" style="max-width: 100%; max-height: 100%;">`;
                 previewImage.style.backgroundColor = selectedColor.toLowerCase();
                 previewDetails.innerHTML = `
-                    Logo: ${selectedLogo || 'Selected'}<br>
+                    Logo: ${selectedLogo.name || 'Selected'}<br>
                     Color: ${selectedColor}
                 `;
             } else {
-                previewImage.innerHTML = 'Complete your selection to see the preview';
-                previewDetails.innerHTML = 'Select a logo and color to see the preview';
+                previewImage.innerHTML = 'Ürün önizlemesi bu alanda yer alacak';
+                previewDetails.innerHTML = 'Önizlemeyi görebilmek için logo ve renk seçimlerinizi tamamlayınız';
             }
         }
 
         function goToProductPage() {
             if (selectedLogo && selectedColor) {
-                alert(`Going to product page for Logo: ${selectedLogo}, Color: ${selectedColor}`);
+                alert(`Going to product page for Logo: ${selectedLogo.name}, Color: ${selectedColor}`);
                 // Replace this with actual navigation to the product page
             } else {
-                alert('Please select a logo and color before proceeding.');
+                alert('Lütfen devam etmeden önce bir logo ve renk seçin.');
             }
         }
 
