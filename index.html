@@ -21,7 +21,7 @@
             max-width: 1920px;
             margin: 0 auto;
             padding: 20px;
-            background-color: rgba(0, 0, 0, 0.3) /* Semi-transparent black overlay */
+            background-color: rgba(0, 0, 0, 0.3);
         }
         h1 {
             font-family: 'Bebas Neue', cursive;
@@ -34,15 +34,12 @@
             display: flex;
             justify-content: space-between;
         }
-        .options-area {
-            display: flex;
-            width: 65%;
-        }
         .logo-selection {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
             gap: 5px;
             margin-right: 20px;
+            width: 65%;
         }
         .logo-option {
             width: 100px;
@@ -70,32 +67,6 @@
             max-height: 90%;
             object-fit: contain;
         }
-        .color-selection {
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            gap: 10px;
-        }
-        .color-option {
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            border: 3px solid transparent;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
-        }
-        .color-option:hover {
-            transform: scale(1.1);
-        }
-        .color-option.selected {
-            border-color: #4CAF50;
-            box-shadow: 0 0 20px rgba(76,175,80,0.5);
-        }
-        .color-beyaz { background-color: white; }
-        .color-siyah { background-color: black; }
-        .color-krem { background-color: #F5DEB3; }
-        .color-antrasit { background-color: #383E42; }
         .product-preview {
             background-color: rgba(51, 51, 51, 0.8);
             border-radius: 15px;
@@ -146,25 +117,17 @@
 </head>
 <body>
     <div class="container">
-        <h1>LOGONU VE RENGİNİ SEÇ</h1>
+        <h1>TARAFINI SEÇ TİŞÖRTÜNÜ GİY</h1>
         <div class="customization-area">
-            <div class="options-area">
-                <div class="logo-selection" id="logoSelection">
-                    <!-- Logos will be dynamically added here -->
-                </div>
-                <div class="color-selection">
-                    <div class="color-option color-beyaz" onclick="selectColor('BEYAZ')"></div>
-                    <div class="color-option color-siyah" onclick="selectColor('SİYAH')"></div>
-                    <div class="color-option color-krem" onclick="selectColor('KREM')"></div>
-                    <div class="color-option color-antrasit" onclick="selectColor('ANTRASİT')"></div>
-                </div>
+            <div class="logo-selection" id="logoSelection">
+                <!-- Logos will be dynamically added here -->
             </div>
             <div class="product-preview">
                 <div class="preview-image" id="previewImage">
                     Ürün önizlemesi bu alanda yer alacak
                 </div>
                 <div class="preview-details" id="previewDetails">
-                    Önizlemeyi görebilmek için logo ve renk seçimlerinizi tamamlayınız
+                    Önizlemeyi görebilmek için logonuzu seçiniz.
                 </div>
                 <button class="go-to-product" onclick="goToProductPage()">ÜRÜN SAYFASINA GİT</button>
             </div>
@@ -172,21 +135,20 @@
     </div>
 
     <script>
-        // The JavaScript remains the same as in the previous version
-        let selectedLogo, selectedColor;
+        let selectedLogo;
         const logos = [
-            { url: "https://i.ibb.co/V9Vjkn7/gs1.png", name: "Sarı Kırmızı Aslan" },
-            { url: "https://i.ibb.co/DC6CQ8N/gs2.png", name: "Futbolcu ve Aslan" },
-            { url: "https://i.ibb.co/grTRK8y/gs3.png", name: "Aslan 1905" },
-            { url: "https://i.ibb.co/0c48ZjY/fb-1.png", name: "Kadıköy Boğası 1907" },
-            { url: "https://i.ibb.co/44PxLCk/fb2.png", name: "Sarı Kanarya 1907" },
-            { url: "https://i.ibb.co/6mC4Rv6/fb3.png", name: "Kadıköy Boğası" },
-            { url: "https://i.ibb.co/cDV6GpM/bjk1.png", name: "Kartal Pençesi 1903" },
-            { url: "https://i.ibb.co/r77D02K/bjk2.png", name: "Kara Kartal" },
-            { url: "https://i.ibb.co/QKsb8zS/bjk3.png", name: "Kartal 1903" },
-            { url: "https://i.ibb.co/Bz9f4qf/ts1.png", name: "Bordo Mavi Kaplan Pençesi" },
-            { url: "https://i.ibb.co/10cWpqx/ts2.png", name: "Karadeniz Kaplanı 1967" },
-            { url: "https://i.ibb.co/bvW4V6H/ts3.png", name: "Karadeniz Kaplanı" }
+            { url: "https://i.ibb.co/V9Vjkn7/gs1.png", name: "Sarı Kırmızı Aslan", redirect: "https://neyex.co/aslan-taraftar-ozel", preview: "https://i.hizliresim.com/3ca8fyw.png" },
+            { url: "https://i.ibb.co/DC6CQ8N/gs2.png", name: "Futbolcu ve Aslan", redirect: "https://neyex.co/futbol-aslan-taraftar-ozel", preview: "https://i.hizliresim.com/1luru9x.png" },
+            { url: "https://i.ibb.co/grTRK8y/gs3.png", name: "Aslan 1905", redirect: "https://neyex.co/aslan-1905-taraftar-ozel", preview: "https://i.hizliresim.com/o7zuz1g.png" },
+            { url: "https://i.ibb.co/0c48ZjY/fb-1.png", name: "Kadıköy Boğası 1907", redirect: "https://neyex.co/kadikoy-boga-taraftar-ozel", preview: "https://i.hizliresim.com/lnzs8s4.png" },
+            { url: "https://i.ibb.co/44PxLCk/fb2.png", name: "Sarı Kanarya 1907", redirect: "https://neyex.co/sari-kanarya-taraftar-ozel", preview: "https://i.hizliresim.com/oekxogj.png" },
+            { url: "https://i.ibb.co/6mC4Rv6/fb3.png", name: "Kadıköy Boğası", redirect: "https://neyex.co/kadikoy-bogasi-taraftar-ozel", preview: "https://i.hizliresim.com/mhvje2n.png" },
+            { url: "https://i.ibb.co/cDV6GpM/bjk1.png", name: "Kartal Pençesi 1903", redirect: "https://neyex.co/kartal-pencesi-taraftar-ozel", preview: "https://i.hizliresim.com/44pt2lm.png" },
+            { url: "https://i.ibb.co/r77D02K/bjk2.png", name: "Kara Kartal", redirect: "https://neyex.co/kara-kartal-taraftar-ozel", preview: "https://i.hizliresim.com/smd185d.png" },
+            { url: "https://i.ibb.co/QKsb8zS/bjk3.png", name: "Kartal 1903", redirect: "https://neyex.co/kartal-1903-taraftar-ozel", preview: "https://i.hizliresim.com/o5cjvq0.png" },
+            { url: "https://i.ibb.co/Bz9f4qf/ts1.png", name: "Bordo Mavi Kaplan Pençesi", redirect: "https://neyex.co/bordomavi-kaplan-taraftar-ozel", preview: "https://i.hizliresim.com/cuqzmyj.png" },
+            { url: "https://i.ibb.co/10cWpqx/ts2.png", name: "Karadeniz Kaplanı 1967", redirect: "https://neyex.co/karadeniz-1967-taraftar-ozel", preview: "https://i.hizliresim.com/e4kn2yc.png" },
+            { url: "https://i.ibb.co/bvW4V6H/ts3.png", name: "Karadeniz Kaplanı", redirect: "https://neyex.co/karadeniz-kaplan-taraftar-ozel", preview: "https://i.hizliresim.com/4ghtx93.png" }
         ];
 
         function initializeLogos() {
@@ -194,7 +156,7 @@
             logos.forEach((logo, index) => {
                 const logoOption = document.createElement('div');
                 logoOption.className = 'logo-option';
-                logoOption.onclick = () => selectLogo(`LOGO${index + 1}`, logo.url, logo.name);
+                logoOption.onclick = () => selectLogo(logo);
                 const img = document.createElement('img');
                 img.src = logo.url;
                 img.alt = logo.name;
@@ -203,48 +165,33 @@
             });
         }
 
-        function selectLogo(logo, logoUrl, logoName) {
-            selectedLogo = { logo, name: logoName };
+        function selectLogo(logo) {
+            selectedLogo = logo;
             document.querySelectorAll('.logo-option').forEach(option => {
-                option.classList.remove('selected');
-            });
-            event.currentTarget.classList.add('selected');
-            updatePreview(logoUrl);
-        }
-
-        function selectColor(color) {
-            selectedColor = color;
-            document.querySelectorAll('.color-option').forEach(option => {
                 option.classList.remove('selected');
             });
             event.currentTarget.classList.add('selected');
             updatePreview();
         }
 
-        function updatePreview(logoUrl) {
+        function updatePreview() {
             const previewImage = document.getElementById('previewImage');
             const previewDetails = document.getElementById('previewDetails');
 
-            if ((logoUrl || selectedLogo) && selectedColor) {
-                const currentLogoUrl = logoUrl || document.querySelector('.logo-option.selected img').src;
-                previewImage.innerHTML = `<img src="${currentLogoUrl}" alt="Selected Logo" style="max-width: 100%; max-height: 100%;">`;
-                previewImage.style.backgroundColor = selectedColor.toLowerCase();
-                previewDetails.innerHTML = `
-                    Logo: ${selectedLogo.name || 'Selected'}<br>
-                    Color: ${selectedColor}
-                `;
+            if (selectedLogo) {
+                previewImage.innerHTML = `<img src="${selectedLogo.preview}" alt="${selectedLogo.name}" style="max-width: 100%; max-height: 100%;">`;
+                previewDetails.innerHTML = `Seçilen Logo: ${selectedLogo.name}`;
             } else {
                 previewImage.innerHTML = 'Ürün önizlemesi bu alanda yer alacak';
-                previewDetails.innerHTML = 'Önizlemeyi görebilmek için logo ve renk seçimlerinizi tamamlayınız';
+                previewDetails.innerHTML = 'Önizlemeyi görebilmek için logonuzu seçiniz.';
             }
         }
 
         function goToProductPage() {
-            if (selectedLogo && selectedColor) {
-                alert(`Going to product page for Logo: ${selectedLogo.name}, Color: ${selectedColor}`);
-                // Replace this with actual navigation to the product page
+            if (selectedLogo) {
+                window.location.href = selectedLogo.redirect;
             } else {
-                alert('Lütfen devam etmeden önce bir logo ve renk seçin.');
+                alert('Lütfen devam etmeden önce bir logo seçin.');
             }
         }
 
