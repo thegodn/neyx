@@ -73,7 +73,7 @@
             padding: 20px;
             box-shadow: 0 10px 20px rgba(0,0,0,0.2);
             text-align: center;
-            width: 65%;
+            width: 30%;
             display: flex;
             flex-direction: column;
             justify-content: space-between;
@@ -92,16 +92,16 @@
         .color-options {
             display: flex;
             justify-content: center;
-            gap: 10px;
-            margin-top: 20px;
+            margin-bottom: 10px;
         }
         .color-option {
-            width: 30px;
-            height: 30px;
+            width: 20px;
+            height: 20px;
             border-radius: 50%;
             cursor: pointer;
             transition: all 0.3s ease;
             border: 2px solid transparent;
+            margin: 0 5px;
         }
         .color-option:hover {
             transform: scale(1.1);
@@ -114,6 +114,26 @@
         .color-black { background-color: black; }
         .color-beige { background-color: beige; }
         .color-anthracite { background-color: #36454F; }
+        .go-to-product {
+            background-color: #4CAF50;
+            border: none;
+            color: white;
+            padding: 10px 20px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin-top: 10px;
+            cursor: pointer;
+            border-radius: 30px;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+        .go-to-product:hover {
+            background-color: #45a049;
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+        }
     </style>
 </head>
 <body>
@@ -133,6 +153,7 @@
                     <div class="color-option color-beige" onclick="selectColor('beige')"></div>
                     <div class="color-option color-anthracite" onclick="selectColor('anthracite')"></div>
                 </div>
+                <button class="go-to-product" onclick="goToProductPage()">ÜRÜN SAYFASINA GİT</button>
             </div>
         </div>
     </div>
@@ -183,12 +204,7 @@
             document.querySelectorAll('.color-option').forEach(option => {
                 option.classList.remove('selected');
             });
-            event.currentTarget.classList.add('selected');
-            if (selectedLogo) {
-                goToProductPage();
-            } else {
-                alert('Lütfen önce bir logo seçin.');
-            }
+            event.target.classList.add('selected');
         }
 
         function updatePreview() {
@@ -201,10 +217,16 @@
         }
 
         function goToProductPage() {
-            if (selectedLogo && selectedColor) {
-                const url = new URL(selectedLogo.redirect);
-                url.searchParams.append('color', selectedColor);
-                window.top.location.href = url.toString();
+            if (selectedLogo) {
+                if (selectedColor) {
+                    const url = new URL(selectedLogo.redirect);
+                    url.searchParams.append('color', selectedColor);
+                    window.top.location.href = url.toString();
+                } else {
+                    alert('Lütfen bir renk seçin.');
+                }
+            } else {
+                alert('Lütfen önce bir logo seçin.');
             }
         }
 
