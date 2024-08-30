@@ -37,13 +37,13 @@
         .logo-selection {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
-            gap: 5px;
+            gap: 10px;
             margin-right: 20px;
-            width: 30%;
+            width: 40%;
         }
         .logo-option {
-            width: 80px;
-            height: 80px;
+            width: 120px;
+            height: 120px;
             border-radius: 50%;
             cursor: pointer;
             transition: all 0.3s ease;
@@ -68,32 +68,52 @@
             object-fit: contain;
         }
         .product-preview {
-            background-color: rgba(51, 51, 51, 0.8);
             border-radius: 15px;
             padding: 20px;
             box-shadow: 0 10px 20px rgba(0,0,0,0.2);
             text-align: center;
-            width: 30%;
+            width: 40%;
             display: flex;
             flex-direction: column;
             justify-content: space-between;
+            position: relative;
+            overflow: hidden;
+        }
+        .product-preview::before,
+        .product-preview::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            width: 50%;
             transition: background-color 0.3s ease;
+        }
+        .product-preview::before {
+            left: 0;
+            background-color: var(--color1, rgba(51, 51, 51, 0.8));
+        }
+        .product-preview::after {
+            right: 0;
+            background-color: var(--color2, rgba(51, 51, 51, 0.8));
         }
         .preview-image {
             width: 100%;
             height: 400px;
-            background-color: #444;
             margin-bottom: 20px;
             display: flex;
             justify-content: center;
             align-items: center;
             font-size: 16px;
             color: #888;
+            position: relative;
+            z-index: 1;
         }
         .color-options {
             display: flex;
             justify-content: center;
             margin-bottom: 10px;
+            position: relative;
+            z-index: 1;
         }
         .color-option {
             width: 20px;
@@ -125,6 +145,8 @@
             border-radius: 30px;
             transition: all 0.3s ease;
             box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            position: relative;
+            z-index: 1;
         }
         .go-to-product:hover {
             background-color: #45a049;
@@ -207,15 +229,22 @@
 
         function updateBackgroundColor(index) {
             const productPreview = document.getElementById('productPreview');
+            let color1, color2;
             if (index < 3) {
-                productPreview.style.backgroundColor = 'rgba(255, 204, 0, 0.8)'; // Yellow-Red
+                color1 = 'rgba(255, 204, 0, 0.8)'; // Yellow
+                color2 = 'rgba(204, 0, 0, 0.8)'; // Red
             } else if (index < 6) {
-                productPreview.style.backgroundColor = 'rgba(0, 51, 102, 0.8)'; // Yellow-Navy
+                color1 = 'rgba(255, 204, 0, 0.8)'; // Yellow
+                color2 = 'rgba(0, 51, 102, 0.8)'; // Navy
             } else if (index < 9) {
-                productPreview.style.backgroundColor = 'rgba(0, 0, 0, 0.8)'; // Black-White
+                color1 = 'rgba(0, 0, 0, 0.8)'; // Black
+                color2 = 'rgba(255, 255, 255, 0.8)'; // White
             } else {
-                productPreview.style.backgroundColor = 'rgba(128, 0, 0, 0.8)'; // Burgundy-Blue
+                color1 = 'rgba(128, 0, 0, 0.8)'; // Burgundy
+                color2 = 'rgba(0, 0, 128, 0.8)'; // Blue
             }
+            productPreview.style.setProperty('--color1', color1);
+            productPreview.style.setProperty('--color2', color2);
         }
 
         function goToProductPage(color) {
