@@ -39,11 +39,11 @@
             grid-template-columns: repeat(3, 1fr);
             gap: 5px;
             margin-right: 20px;
-            width: 65%;
+            width: 30%;
         }
         .logo-option {
-            width: 100px;
-            height: 100px;
+            width: 80px;
+            height: 80px;
             border-radius: 50%;
             cursor: pointer;
             transition: all 0.3s ease;
@@ -73,7 +73,7 @@
             padding: 20px;
             box-shadow: 0 10px 20px rgba(0,0,0,0.2);
             text-align: center;
-            width: 30%;
+            width: 65%;
             display: flex;
             flex-direction: column;
             justify-content: space-between;
@@ -89,30 +89,31 @@
             font-size: 16px;
             color: #888;
         }
-        .preview-details {
-            font-size: 14px;
-            line-height: 1.6;
+        .color-options {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 20px;
         }
-        .go-to-product {
-            background-color: #4CAF50;
-            border: none;
-            color: white;
-            padding: 10px 20px;
-            text-align: center;
-            text-decoration: none;
-            display: block;
-            font-size: 16px;
-            margin: 20px auto 0;
+        .color-option {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
             cursor: pointer;
-            border-radius: 30px;
             transition: all 0.3s ease;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            border: 2px solid transparent;
         }
-        .go-to-product:hover {
-            background-color: #45a049;
-            transform: translateY(-3px);
-            box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+        .color-option:hover {
+            transform: scale(1.1);
         }
+        .color-option.selected {
+            border-color: #4CAF50;
+            box-shadow: 0 0 10px rgba(76,175,80,0.5);
+        }
+        .color-white { background-color: white; }
+        .color-black { background-color: black; }
+        .color-beige { background-color: beige; }
+        .color-anthracite { background-color: #36454F; }
     </style>
 </head>
 <body>
@@ -126,16 +127,19 @@
                 <div class="preview-image" id="previewImage">
                     Ürün önizlemesi bu alanda yer alacak
                 </div>
-                <div class="preview-details" id="previewDetails">
-                    Önizlemeyi görebilmek için logonuzu seçiniz.
+                <div class="color-options">
+                    <div class="color-option color-white" onclick="selectColor('white')"></div>
+                    <div class="color-option color-black" onclick="selectColor('black')"></div>
+                    <div class="color-option color-beige" onclick="selectColor('beige')"></div>
+                    <div class="color-option color-anthracite" onclick="selectColor('anthracite')"></div>
                 </div>
-                <button class="go-to-product" onclick="goToProductPage()">ÜRÜN SAYFASINA GİT</button>
             </div>
         </div>
     </div>
 
     <script>
         let selectedLogo;
+        let selectedColor;
         const logos = [
             { url: "https://i.ibb.co/V9Vjkn7/gs1.png", name: "Sarı Kırmızı Aslan", redirect: "https://neyex.co/aslan-taraftar-ozel", preview: "https://i.hizliresim.com/3ca8fyw.png" },
             { url: "https://i.ibb.co/DC6CQ8N/gs2.png", name: "Futbolcu ve Aslan", redirect: "https://neyex.co/futbol-aslan-taraftar-ozel", preview: "https://i.hizliresim.com/1luru9x.png" },
@@ -174,24 +178,33 @@
             updatePreview();
         }
 
+        function selectColor(color) {
+            selectedColor = color;
+            document.querySelectorAll('.color-option').forEach(option => {
+                option.classList.remove('selected');
+            });
+            event.currentTarget.classList.add('selected');
+            if (selectedLogo) {
+                goToProductPage();
+            } else {
+                alert('Lütfen önce bir logo seçin.');
+            }
+        }
+
         function updatePreview() {
             const previewImage = document.getElementById('previewImage');
-            const previewDetails = document.getElementById('previewDetails');
-
             if (selectedLogo) {
                 previewImage.innerHTML = `<img src="${selectedLogo.preview}" alt="${selectedLogo.name}" style="max-width: 100%; max-height: 100%;">`;
-                previewDetails.innerHTML = `Seçilen Logo: ${selectedLogo.name}`;
             } else {
                 previewImage.innerHTML = 'Ürün önizlemesi bu alanda yer alacak';
-                previewDetails.innerHTML = 'Önizlemeyi görebilmek için logonuzu seçiniz.';
             }
         }
 
         function goToProductPage() {
-            if (selectedLogo) {
-                window.location.href = selectedLogo.redirect;
-            } else {
-                alert('Lütfen devam etmeden önce bir logo seçin.');
+            if (selectedLogo && selectedColor) {
+                const url = new URL(selectedLogo.redirect);
+                url.searchParams.append('color', selectedColor);
+                window.top.location.href = url.toString();
             }
         }
 
